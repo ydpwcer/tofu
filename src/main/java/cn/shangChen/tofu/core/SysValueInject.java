@@ -35,6 +35,7 @@ public class SysValueInject {
                             continue;
                         }
 
+                        gi
                         value = propsValue;
                     }
 
