@@ -1,8 +1,11 @@
-package cn.shangChen.tofu.core;
+package cn.shangChen.tofu.utils;
 
+import cn.shangChen.tofu.core.TofuProps;
 import cn.shangChen.tofu.core.annotation.SysValue;
 
 import java.lang.reflect.Field;
+
+import cn.shangChen.tofu.utils.ObjectCreatorFactory;
 import cn.shangChen.tofu.utils.StringUtils;
 
 /**
@@ -22,7 +25,6 @@ public class SysValueInject {
     public static  <T> void inject(T object){
         Field[] fields = object.getClass().getDeclaredFields();
 
-
         for(Field field : fields){
             if(field.isAnnotationPresent(SysValue.class)){
                 SysValue sysValue = field.getAnnotation(SysValue.class);
@@ -34,9 +36,15 @@ public class SysValueInject {
                         if(propsValue == null){
                             continue;
                         }
-
-                        gi
                         value = propsValue;
+                    }
+
+                    try {
+                        Class c = field.getType();
+                        field.setAccessible(true);
+                        field.set(object, ObjectCreatorFactory.create(c,value));
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
                     }
 
                 }

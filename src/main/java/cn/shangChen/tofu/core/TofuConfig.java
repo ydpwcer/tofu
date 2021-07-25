@@ -1,6 +1,7 @@
 package cn.shangChen.tofu.core;
 
 import cn.shangChen.tofu.core.annotation.SysValue;
+import cn.shangChen.tofu.utils.SysValueInject;
 
 /**
  * 描述数据库信息的对象
